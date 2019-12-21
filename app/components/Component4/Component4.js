@@ -1,36 +1,47 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, FlatList } from 'react-native';
-import {List, ListItem} from 'react-native-elements';
+import {AppRegistry, Text, View, FlatList, Button } from 'react-native';
 
-const users =[
-    {name: "Aru"},
-    {name: "Suman"},
-    {name: "Susmita"},
-]
-
-export default class RApp extends Component { 
+class Component4 extends Component { 
     constructor(){
         super();
         this.state = {
             data:[
-                {name: "Aru"},
-                {name: "Suman"},
-                {name: "Susmita"},
+                {name: "Aru", age: 24,},
+                {name: "Suman", age: 23},
+                {name: "Susmita", age: 22},
             ]
         }
     }
+    redderItems(item) {
+        return (
+            <View style={{flex: 1, flexDirection: 'row', backgroundColor: 'wheat', justifyContent: 'space-around', padding: 5}}>
+                <Text>{item.name}</Text>
+                <Text>{item.age}</Text>
+                <Button title="Delete" />
+            </View>
+        );
+    }
+    emptyList() {
+        this.setState((prev) => {
+            return {
+                data: [],
+            }
+        })
+    }
     render() {
         return(
-            <List>
+            <>
+                <Button title="Empty List" onPress={() => this.emptyList()} />
                 <FlatList
                     data={this.state.data}
-                    renderItem={({item})=> {
-                        <ListItem title={`${this.item.name}`} />
-                    }}
+                    renderItem={({item})=> this.redderItems(item)}
+                    ListEmptyComponent={() => (<Text>Sorry! No items found!</Text>)}
                 />
-            </List>
+            </>
         );
     }
 } 
 
-AppRegistry.registerComponent('RApp', () => RApp);
+// AppRegistry.registerComponent('Component4', () => Component4);
+
+export default Component4;
